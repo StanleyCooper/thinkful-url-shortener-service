@@ -1,5 +1,15 @@
 const express = require("express");
+
+const urls = require("./data/urls-data");
+const uses = require("./data/uses-data");
+
 const app = express();
+
+const urlsRouter = require("./urls/urls.router");
+
+app.use(express.json());
+
+app.use("/urls", urlsRouter);
 
 // Not found handler
 app.use((request, response, next) => {
