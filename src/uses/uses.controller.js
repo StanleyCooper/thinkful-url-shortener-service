@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const uses = require("../data/uses-data");
 
 // List the uses
@@ -27,8 +26,16 @@ function useExists(request, response, next) {
     })
 }
 
+function destroy(request, response, next) {
+    const { useId } = req.params;
+    const indexToDelete = uses.findIndex((use) => use.id === Number(useId));
+    uses.splice(indexToDelete, 1);
+    res.sendStatus(204);
+}
+
 module.exports = {
     list,
     read: [useExists, read],
+    delete: [useExists, destroy],
     useExists,
 }
