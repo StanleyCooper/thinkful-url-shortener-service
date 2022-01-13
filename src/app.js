@@ -1,8 +1,5 @@
 const express = require("express");
 
-const urls = require("./data/urls-data");
-const uses = require("./data/uses-data");
-
 const app = express();
 
 const urlsRouter = require("./urls/urls.router");
@@ -15,7 +12,10 @@ app.use("/uses", usesRouter);
 
 // Not found handler
 app.use((request, response, next) => {
-    next({ status: 404, message: `Not found: ${request.originalUrl}` });
+    next({ 
+      status: 404,
+      message: `Not found: ${request.originalUrl}`,
+   });
 });
   
 // Error handler
