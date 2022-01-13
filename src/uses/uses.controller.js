@@ -3,7 +3,7 @@ const uses = require("../data/uses-data");
 // List the uses
 function list(request, response) {
     const { urlId } = request.params;
-    const byResult = urlId ? use => use.urlId ===Number(urlId) : () => true;
+    const byResult = urlId ? use => use.urlId === Number(urlId) : () => true;
     response.json({ data: uses.filter(byResult) });
 }
 

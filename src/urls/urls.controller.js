@@ -9,17 +9,18 @@ function list(request, response) {
     response.json({ data: urls });
 }
 
+let newUseId = uses.length + 1;
+
 // Get the specfic matched url from data
-function read(req, response) {
-    let newUseId = uses.length + 1;
-    const urlId = Number(request.params.urlId);
+function read(req, res) {
+    const urlId = Number(req.params.urlId);
     const newUse = {
         id: newUseId,
         urlId,
         time: Date.now(),
     }
     uses.push(newUse)
-    response.json({ data: response.locals.url })
+    res.json({ data: res.locals.url })
 }
 
 // Check for a matching url, or give a 404
@@ -59,14 +60,14 @@ function create(request, response) {
     response.status(201).json({ data: newUrl });
 }
 
-function update(request, response, next) {
-    const url = response.locals.url;
+function update(req, res, next) {
+    const url = res.locals.url;
     const originalUrl = url.href;
-    const { data: { href } = {} } =request.body;
+    const { data: { href } = {} } = req.body;
     if (originalUrl !== href) {
         url.href = href;
     }
-    response.json({ data: url });
+    res.json({ data: url });
 }
 
 module.exports = {
