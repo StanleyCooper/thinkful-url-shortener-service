@@ -6,10 +6,12 @@ const uses = require("./data/uses-data");
 const app = express();
 
 const urlsRouter = require("./urls/urls.router");
+const usesRouter = require("./uses/uses.router");
 
 app.use(express.json());
 
 app.use("/urls", urlsRouter);
+app.use("/uses", usesRouter);
 
 // Not found handler
 app.use((request, response, next) => {
