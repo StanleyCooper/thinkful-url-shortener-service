@@ -10,6 +10,7 @@ router
 router
     .route("/:useId")
     .get(controller.read)
+    .delete(controller.delete)
     .all(methodNotAllowed);
 
 module.exports = router;

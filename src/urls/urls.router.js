@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const controller = require("./urls.controller");
 const methodNotAllowed = require("../errors/methodNotAllowed");
+const usesRouter = require("../uses/uses.router");
+
+router.use("/:urlId/uses", controller.urlExists, usesRouter);
 
 router
     .route("/:urlId")
