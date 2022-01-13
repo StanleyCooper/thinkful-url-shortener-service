@@ -10,7 +10,7 @@ function list(request, response) {
 }
 
 // Get the specfic matched url from data
-function read(req, res) {
+function read(req, response) {
     let newUseId = uses.length + 1;
     const urlId = Number(request.params.urlId);
     const newUse = {
@@ -19,7 +19,7 @@ function read(req, res) {
         time: Date.now(),
     }
     uses.push(newUse)
-    res.json({ data: res.locals.url })
+    response.json({ data: response.locals.url })
 }
 
 // Check for a matching url, or give a 404
@@ -27,7 +27,7 @@ function urlExists(request, response, next) {
     const { urlId } = request.params;
     const foundUrl = urls.find((url) => url.id === Number(urlId));
     if (foundUrl) {
-        respond.locals.url = foundUrl;
+        response.locals.url = foundUrl;
         return next();
     }
     next({
@@ -38,7 +38,7 @@ function urlExists(request, response, next) {
 
 // Check for a valid url in request body
 function bodyHasReferenceProperty(request, response, next) {
-    const { data: { href } = {} } = req.body;
+    const { data: { href } = {} } = request.body;
     if (href) {
         return next();
     }
@@ -59,14 +59,14 @@ function create(request, response) {
     response.status(201).json({ data: newUrl });
 }
 
-function update(req, res, next) {
-    const url = res.locals.url;
+function update(request, response, next) {
+    const url = response.locals.url;
     const originalUrl = url.href;
-    const { data: { href } = {} } =req.body;
+    const { data: { href } = {} } =request.body;
     if (originalUrl !== href) {
         url.href = href;
     }
-    res.json({ data: url });
+    response.json({ data: url });
 }
 
 module.exports = {
